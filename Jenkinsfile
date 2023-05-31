@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Activate virtual environment') {
             steps {
-                'echo "Virtual env activated"
+                echo "Virtual env activated"
             }
         }
         stage('Install requirements') {
