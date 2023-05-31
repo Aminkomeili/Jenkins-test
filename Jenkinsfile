@@ -1,5 +1,7 @@
 def services = ['CLI', 'DHCP', 'Interface', 'ISIS', 'NTP', 'OSPF', 'PBR', 'RIP', 'StaticRoute', 'VRRP']
 
+def routing = ['OSPF', 'ISIS', 'RIP', 'StaticRoute']
+
 pipeline {
     agent any
 
@@ -49,6 +51,39 @@ pipeline {
                     }
 
                     parallel jobs
+                }
+            }
+        }
+        stage('Routing Tests') {
+            steps {
+                script {
+                    def routingJobs = [:]
+                    for (int i = 0; i < routing.size(); i++) {
+                        def route = routing[i]
+
+                        routingJobs[route] = {
+                            stage("${route}") {
+                                stage("Build ${route} Route") {
+                                    echo "Build ${route}"
+                                    sleep(5)
+                                }
+                                stage("Deploy ${route} Configuration") {
+                                    echo "Deploy ${route}"
+                                    sleep(5)
+                                }
+                                stage("Test ${route}") {
+                                    echo "Test ${route}"
+                                    sleep(5)
+                                }
+                                stage("Release ${route} Logs") {
+                                    echo "Release ${route}"
+                                    sleep(5)
+                                }
+                            }
+                        }
+                    }
+
+                    parallel routingJobs
                 }
             }
         }
