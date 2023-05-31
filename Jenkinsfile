@@ -1,5 +1,5 @@
 def services = ['CLI', 'DHCP', 'Interface',  'NTP','PBR', 'VRRP']
-def routeing = ['ISIS','OSPF','RIP','StaticRoute']
+def routing = ['ISIS','OSPF','RIP','StaticRoute']
 
 pipeline {
     agent any
@@ -72,7 +72,7 @@ pipeline {
                                     sleep(5)
                                 }
                                 stage("Test ${route}") {
-                                    echo "Test ${service}"
+                                    echo "Test ${route}"
                                     sleep(5)
                                 }
                                 stage("Release ${route} Logs") {
