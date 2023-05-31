@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Install requirements') {
             steps {
-                echo "requirements installed
+                echo "requirements installed"
             }
         }
         stage('Routing Protocol Tests') {
