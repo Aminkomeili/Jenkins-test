@@ -28,7 +28,17 @@ pipeline {
                         def route = routing[i]
 
                         jobs[route] = {
-                            stage("${route}") {
+                            stage("Build ${route}") {
+                                echo "Build ${route}"
+                                sleep(5)
+                                echo "Deploy ${route}"
+                                sleep(5)
+                                echo "Test ${route}"
+                                sleep(5)
+                                echo "Release ${route}"
+                                sleep(5)
+                            }
+                            stage("Deploy ${route}") {
                                 echo "Build ${route}"
                                 sleep(5)
                                 echo "Deploy ${route}"
