@@ -7,17 +7,17 @@ pipeline {
     stages {
         stage('Create virtual environment') {
             steps {
-                sh 'python3 -m venv myenv'
+                echo 'python3 -m venv myenv'
             }
         }
         stage('Activate virtual environment') {
             steps {
-                sh '. myenv/bin/activate'
+                echo '. myenv/bin/activate'
             }
         }
         stage('Install requirements') {
             steps {
-                sh 'pip install -r requirements.txt'
+                echo 'pip install -r requirements.txt'
             }
         }
         stage('Routing Tests') {
