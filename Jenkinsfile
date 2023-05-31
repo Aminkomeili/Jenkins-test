@@ -53,11 +53,11 @@ pipeline {
         }
         stage('Routing Tests') {
             steps {
-                def jobs = [:]
+                def jobs2 = [:]
                 for (int i = 0; i < routing.size(); i++) {
                     def route = routing[i]
 
-                    jobs[route] = {
+                    jobs2[route] = {
                         stage("${route}") {
                             stage("Build ${route} Service") {
                                 echo "Build ${route}"
