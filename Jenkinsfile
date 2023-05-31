@@ -1,5 +1,5 @@
 def routing = ['ISIS', 'OSPF', 'RIP', 'StaticRoute']
-def services = ['CLI', 'DHCP', 'Interface', 'NTP', 'PBR', 'VRRP']
+def services = ['CLI', 'DHCP', 'Interface', 'NTP','PBR', 'VRRP']
 
 pipeline {
     agent any
@@ -7,20 +7,20 @@ pipeline {
     stages {
         stage('Create virtual environment') {
             steps {
-                echo "virtual evn created"
+                sh 'python3 -m venv myenv'
             }
         }
         stage('Activate virtual environment') {
             steps {
-                echo "Virtual env activated"
+                sh '. myenv/bin/activate'
             }
         }
         stage('Install requirements') {
             steps {
-                echo "requirements installed"
+                sh 'pip install -r requirements.txt'
             }
         }
-        stage('Routing Protocol Tests') {
+        stage('Routing Tests') {
             steps {
                 script {
                     def jobs = [:]
@@ -28,21 +28,15 @@ pipeline {
                         def route = routing[i]
 
                         jobs[route] = {
-                            stage("Build ${route}") {
+                            stage("${route}") {
                                 echo "Build ${route}"
-                                sleep(1)
-                            }
-                            stage("Deploy ${route}") {
+                                sleep(5)
                                 echo "Deploy ${route}"
-                                sleep(1)
-                            }
-                            stage("Run ${route}") {
-                                echo "Run ${route}"
-                                sleep(1)
-                            }
-                            stage("Logging ${route}") {
-                                echo "Logging ${route}"
-                                sleep(1)
+                                sleep(5)
+                                echo "Test ${route}"
+                                sleep(5)
+                                echo "Release ${route}"
+                                sleep(5)
                             }
                         }
                     }
@@ -59,21 +53,15 @@ pipeline {
                         def service = services[i]
 
                         jobs[service] = {
-                            stage("Build ${service}") {
+                            stage("${service}") {
                                 echo "Build ${service}"
-                                sleep(1)
-                            }
-                            stage("Deploy ${service}") {
+                                sleep(5)
                                 echo "Deploy ${service}"
-                                sleep(1)
-                            }
-                            stage("Run ${service}") {
-                                echo "Run ${service}"
-                                sleep(1)
-                            }
-                            stage("Logging ${service}") {
-                                echo "Logging ${service}"
-                                sleep(1)
+                                sleep(5)
+                                echo "Test ${service}"
+                                sleep(5)
+                                echo "Release ${service}"
+                                sleep(5)
                             }
                         }
                     }
