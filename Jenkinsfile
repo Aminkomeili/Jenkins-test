@@ -22,71 +22,65 @@ pipeline {
         }
         stage('Service Tests') {
             steps {
-                script {
-                    def jobs = [:]
-                    for (int i = 0; i < services.size(); i++) {
-                        def service = services[i]
+                def jobs = [:]
+                for (int i = 0; i < services.size(); i++) {
+                    def service = services[i]
 
-                        jobs[service] = {
-                            stage("${service}") {
-                                stage("Build ${service} Service") {
-                                    echo "Build ${service}"
-                                    sleep(5)
-                                }
-                                stage("Deploy ${service} Container") {
-                                    echo "Deploy ${service}"
-                                    sleep(5)
-                                }
-                                stage("Test ${service}") {
-                                    echo "Test ${service}"
-                                    sleep(5)
-                                }
-                                stage("Release ${service} Logs") {
-                                    echo "Release ${service}"
-                                    sleep(5)
-                                }
+                    jobs[service] = {
+                        stage("${service}") {
+                            stage("Build ${service} Service") {
+                                echo "Build ${service}"
+                                sleep(5)
+                            }
+                            stage("Deploy ${service} Container") {
+                                echo "Deploy ${service}"
+                                sleep(5)
+                            }
+                            stage("Test ${service}") {
+                                echo "Test ${service}"
+                                sleep(5)
+                            }
+                            stage("Release ${service} Logs") {
+                                echo "Release ${service}"
+                                sleep(5)
                             }
                         }
                     }
-
-                    parallel jobs
                 }
+
+                parallel jobs
             }
-            
         }
         stage('Routing Tests') {
             steps {
-                script {
-                    def jobs = [:]
-                    for (int i = 0; i < routing.size(); i++) {
-                        def route = routing[i]
+                def jobs = [:]
+                for (int i = 0; i < routing.size(); i++) {
+                    def route = routing[i]
 
-                        jobs[service] = {
-                            stage("${route}") {
-                                stage("Build ${route} Service") {
-                                    echo "Build ${service}"
-                                    sleep(5)
-                                }
-                                stage("Deploy ${route} Container") {
-                                    echo "Deploy ${route}"
-                                    sleep(5)
-                                }
-                                stage("Test ${route}") {
-                                    echo "Test ${route}"
-                                    sleep(5)
-                                }
-                                stage("Release ${route} Logs") {
-                                    echo "Release ${route}"
-                                    sleep(5)
-                                }
+                    jobs[route] = {
+                        stage("${route}") {
+                            stage("Build ${route} Service") {
+                                echo "Build ${route}"
+                                sleep(5)
+                            }
+                            stage("Deploy ${route} Container") {
+                                echo "Deploy ${route}"
+                                sleep(5)
+                            }
+                            stage("Test ${route}") {
+                                echo "Test ${route}"
+                                sleep(5)
+                            }
+                            stage("Release ${route} Logs") {
+                                echo "Release ${route}"
+                                sleep(5)
                             }
                         }
                     }
-
-                    parallel jobs
                 }
+
+                parallel jobs
             }
-            
         }
         stage('Tagging') {
             steps {
