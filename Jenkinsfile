@@ -1,5 +1,4 @@
-def routing = ['ISIS', 'OSPF', 'RIP', 'StaticRoute']
-def services = ['CLI', 'DHCP', 'Interface', 'NTP','PBR', 'VRRP']
+def services = ['CLI', 'DHCP', 'Interface', 'ISIS', 'NTP', 'OSPF', 'PBR', 'RIP', 'StaticRoute', 'VRRP']
 
 pipeline {
     agent any
@@ -20,41 +19,6 @@ pipeline {
                 echo 'pip install -r requirements.txt'
             }
         }
-        stage('Routing Tests') {
-            steps {
-                script {
-                    def jobs = [:]
-                    for (int i = 0; i < routing.size(); i++) {
-                        def route = routing[i]
-
-                        jobs[route] = {
-                            stage("Build ${route}") {
-                                echo "Build ${route}"
-                                sleep(5)
-                                echo "Deploy ${route}"
-                                sleep(5)
-                                echo "Test ${route}"
-                                sleep(5)
-                                echo "Release ${route}"
-                                sleep(5)
-                            }
-                            stage("Deploy ${route}") {
-                                echo "Build ${route}"
-                                sleep(5)
-                                echo "Deploy ${route}"
-                                sleep(5)
-                                echo "Test ${route}"
-                                sleep(5)
-                                echo "Release ${route}"
-                                sleep(5)
-                            }
-                        }
-                    }
-
-                    parallel jobs
-                }
-            }
-        }
         stage('Service Tests') {
             steps {
                 script {
@@ -64,14 +28,22 @@ pipeline {
 
                         jobs[service] = {
                             stage("${service}") {
-                                echo "Build ${service}"
-                                sleep(5)
-                                echo "Deploy ${service}"
-                                sleep(5)
-                                echo "Test ${service}"
-                                sleep(5)
-                                echo "Release ${service}"
-                                sleep(5)
+                                stage("Build ${service} Service") {
+                                    echo "Build ${service}"
+                                    sleep(5)
+                                }
+                                stage("Deploy ${service} Container") {
+                                    echo "Deploy ${service}"
+                                    sleep(5)
+                                }
+                                stage("Test ${service}") {
+                                    echo "Test ${service}"
+                                    sleep(5)
+                                }
+                                stage("Release ${service} Logs") {
+                                    echo "Release ${service}"
+                                    sleep(5)
+                                }
                             }
                         }
                     }
