@@ -1,4 +1,5 @@
 def services = ['CLI', 'DHCP', 'Interface', 'NTP', 'PBR', 'VRRP']
+
 def routing = ['OSPF', 'ISIS', 'RIP', 'StaticRoute']
 
 pipeline {
