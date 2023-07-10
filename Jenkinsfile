@@ -8,8 +8,8 @@ pipeline {
         stage('Clone ZATS Project') {
             steps {
                 sh 'rm -rf ztest zats'
-                sh 'git clone git@git.zharfpouyan.net:systemdevnet/ztest.git'
-                sh 'git clone git@git.zharfpouyan.net:systemdevnet/zats.git'
+                sh 'git clone git@git.net:x'
+                sh 'git clone git@git.net:x'
             }
         }
         stage('Create ZATS Image') {
