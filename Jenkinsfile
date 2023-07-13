@@ -1,4 +1,4 @@
-def services = ['NTP']
+def services = ['SERVICE_NAME']
 VERSION = 1.3
 
 pipeline {
